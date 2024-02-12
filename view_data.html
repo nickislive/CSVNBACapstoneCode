@@ -1,0 +1,31 @@
+<!-- Extend your base layout -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Add a form for selecting columns -->
+    <form action="{{ url_for('view_data', filename=filename) }}" method="post">
+        <label for="column_name_1">Select an category which you want to Search?:</label>
+        <select name="column_name_1" id="column_name_1">
+            {% for column in columns %}
+            <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="column_name_2">Do you want to search the category based on?:</label>
+        <select name="column_name_2" id="column_name_2">
+            {% for column in columns %}
+            <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Generate Visualization</button>
+    </form>
+
+    <!-- Display the plot -->
+    {% if plot_url %}
+        <div>
+            <h2>Data Visualization</h2>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Visualization">
+        </div>
+    {% endif %}
+{% endblock %}
